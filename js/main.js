@@ -1,11 +1,15 @@
 
+// Llamar a los elementos
+
+
+
 // Variables
 
 const fragment = document.createDocumentFragment();
 const imgUrl = "assets/img/viajes/";
 
 
-const arrButton = ["Mar", "Montaña", "Ciudad", "Lago"]; // Generar los tags a partir del array arrImages.tags con un método
+const arrButton = ['mar', 'palmera', 'chica', 'cielo']; // Generar los tags a partir del array arrImages.tags con un método
 
 
 const arrImages = [
@@ -60,3 +64,34 @@ const arrImages = [
     }
 ]
 
+
+// CREAR BOTONES
+const buttonSection = document.querySelector(".bloque-botones");
+
+// Rellenar boton con valores del array
+const createButton = () => {
+    const createdButton = arrButton.forEach((tag) => {
+        const buttonTags = document.createElement("button");
+        buttonTags.classList.add("boton");
+        buttonTags.id = tag;
+        buttonTags.textContent = tag; 
+        buttonSection.append(buttonTags); // El append al final cuando estén los elementos creados
+        //console.log(buttonTags);
+    })
+    return createdButton;
+};
+
+const findImages = () => {
+    buttonSection.addEventListener("click", generateImageDependigOnTheTagClicked);
+}
+
+function generateImageDependigOnTheTagClicked() {
+  console.log("findImages está funcionando");
+}
+
+createButton();
+findImages();
+
+// CREAR CARD GRANDE
+
+// CREAR CARD PEQUEÑAS
