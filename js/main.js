@@ -1,7 +1,7 @@
 
 // Llamar a los elementos
-const buttonSection = document.querySelector(".bloque-botones");
-
+const buttonArticle = document.querySelector(".bloque-botones");
+const filterBar = document.querySelector(".barra-filtros");
 
 // Variables
 
@@ -66,20 +66,36 @@ const arrImages = [
 
 
 // CREAR BOTONES CON VALORES DEL ARRAY
+//Funcion para crear botones
 const createButton = () => {
     const createdButton = arrButton.forEach((tag) => {
         const buttonTags = document.createElement("button");
         buttonTags.classList.add("boton");
         buttonTags.id = tag;
         buttonTags.textContent = tag; 
-        buttonSection.append(buttonTags); // El append al final cuando estén los elementos creados
+        buttonArticle.append(buttonTags); // El append al final cuando estén los elementos creados
         //console.log(buttonTags);
     })
     return createdButton;
 };
 
+// Función para pintar el párrafo con los resultados encontrados
+// Pruebas para el template string
+let numberOfPictures = 3;
+let tagName ='Mar';
+
+const createButtonParagraph = () => {
+    const resultParagraph = document.createElement("p");
+    resultParagraph.textContent = `Se han encontrado ${numberOfPictures} imágenes con el tag ${tagName}`;
+
+    filterBar.append(resultParagraph);
+    console.log(filterBar);
+}
+
+
+// Función evento generar Imágenes al clickaren botón-etiqueta
 const findImages = () => {
-    buttonSection.addEventListener("click", generateImageDependigOnTheTagClicked);
+    buttonArticle.addEventListener("click", generateImageDependigOnTheTagClicked);
 }
 
 function generateImageDependigOnTheTagClicked() {
@@ -88,6 +104,13 @@ function generateImageDependigOnTheTagClicked() {
 
 createButton();
 findImages();
+createButtonParagraph()
+
+
+
+
+
+
 
 // CREAR CARD GRANDE
 
