@@ -1,6 +1,6 @@
 
 // Llamar a los elementos
-
+const buttonSection = document.querySelector(".bloque-botones");
 
 
 // Variables
@@ -65,10 +65,7 @@ const arrImages = [
 ]
 
 
-// CREAR BOTONES
-const buttonSection = document.querySelector(".bloque-botones");
-
-// Rellenar boton con valores del array
+// CREAR BOTONES CON VALORES DEL ARRAY
 const createButton = () => {
     const createdButton = arrButton.forEach((tag) => {
         const buttonTags = document.createElement("button");
