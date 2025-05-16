@@ -3,6 +3,7 @@
 const buttonArticle = document.querySelector(".bloque-botones");
 const filterBar = document.querySelector(".barra-filtros");
 const mainContainer = document.querySelector("main");
+const galleryContainer = document.querySelector(".section-imgs-relacionadas");
 
 // Variables
 
@@ -103,7 +104,7 @@ function generateCards() {
 }
 
 
-// CREAR CARD GRANDE
+// CREAR CARD GRANDE --------------------------------------------------------------------------------//
 function generateBigCard(indiceImg=0){
         
         const sectionBigCard = document.createElement('section'); //crea un section para Card
@@ -134,6 +135,56 @@ function generateBigCard(indiceImg=0){
 
 
 
+// CREAR GALLERY-----------------------------------------------------------------------------------//
+function generateGalleryContainer () {
+    const h2Card = document.createElement('h2');
+    h2Card.textContent = "IMÁGENES RELACIONADAS";
+
+    const divGallery = document.createElement('div');
+    divGallery.classList.add('bloque-cards-mini');
+
+    galleryContainer.append(h2Card);
+    galleryContainer.append(divGallery);
+
+    const smallCard = generateSmallCard();
+    divGallery.append(smallCard);
+}
+
+
+
+
+//Crear mini-card
+function generateSmallCard(indiceImg=1){
+        
+        const articleSmallCard = document.createElement('article'); //crea un section para Card
+        articleSmallCard.classList.add('card-mini'); //añade una clase en la section Card
+        
+        const h4Card = document.createElement('h4'); //crea un h1
+        h4Card.textContent = arrImages[indiceImg].titulo; //añade el contenido html del texto
+
+        const divCard = document.createElement('div');
+        const imgCard = document.createElement('img'); //crea un img
+        imgCard.setAttribute('src', arrImages[indiceImg].url) //añade atributo src
+        imgCard.setAttribute('alt', arrImages[indiceImg].alt) //añade atributo alt
+
+        
+        const pSmallCard = document.createElement('p'); //crea un p
+        
+        pSmallCard.textContent = arrImages[indiceImg].descripcion; 
+        
+        articleSmallCard.append(h4Card); 
+        articleSmallCard.append(divCard);
+        divCard.append(imgCard);
+        articleSmallCard.append(pSmallCard); 
+        return articleSmallCard;
+
+        // divGallery.append(articleSmallCard);
+}
+
+
+
+
+
 /*PALUEGO
 function generateGalleryCard(indiceImg=0){
     arrFiltrados.forEach((elemento,index) => {
@@ -151,13 +202,6 @@ function generateGalleryCard(indiceImg=0){
 createButton();
 findImages();
 createButtonParagraph()
+generateGalleryContainer();
+generateSmallCard;
 
-
-
-
-
-
-
-
-
-// CREAR CARD PEQUEÑAS
