@@ -68,7 +68,7 @@ const arrImages = [
 // CREAR BOTONES CON VALORES DEL ARRAY
 //Funcion para crear botones
 const createButton = () => {
-    const createdButton = arrButton.forEach((tag) => {
+    arrButton.forEach((tag) => {
         const buttonTags = document.createElement("button");
         buttonTags.classList.add("boton");
         buttonTags.id = tag;
@@ -76,7 +76,6 @@ const createButton = () => {
         buttonArticle.append(buttonTags); // El append al final cuando estén los elementos creados
         //console.log(buttonTags);
     })
-    return createdButton;
 };
 
 // Función para pintar el párrafo con los resultados encontrados
