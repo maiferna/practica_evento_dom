@@ -11,7 +11,6 @@ const fragment = document.createDocumentFragment();
 const imgUrl = "assets/img/viajes/";
 
 
-const arrButton = ['mar', 'palmera', 'chica', 'cielo']; // Generar los tags a partir del array arrImages.tags con un método
 
 
 const arrImages = [
@@ -34,42 +33,68 @@ const arrImages = [
         url: `${imgUrl}viajes-3.jpg`,
         alt: 'Imgen 3',
         descripcion: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolor, perspiciatis?',
-        tags: ['palmera', 'agua', 'cielo'],
+        tags: ['señales', 'cielo'],
     },
     {
         titulo: 'Viaje 4',
         url: `${imgUrl}viajes-4.jpg`,
         alt: 'Imagen 4',
         descripcion: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolor, perspiciatis?',
-        tags: ['palmera', 'agua', 'cielo'],
+        tags: ['sevilla', 'plaza', 'cielo', 'puente', 'agua'],
     },
     {
         titulo: 'Viaje 5',
         url: `${imgUrl}viajes-5.jpg`,
         alt: 'Imagen 5',
         descripcion: 'Breve descripción de la imagen 5',
-        tags: ['palmera', 'agua', 'cielo'],
+        tags: ['sevilla', 'plaza', 'cielo', 'puente', 'agua'],
     },
     {
         titulo: 'Viaje 6',
         url: `${imgUrl}viajes-6.jpg`,
         alt: 'Imagen 6',
         descripcion: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolor, perspiciatis?',
-        tags: ['palmera', 'agua', 'cielo'],
+        tags: ['mar', 'agua', 'cielo', 'montaña'],
     },
     {
         titulo: 'Viaje 7',
         url: `${imgUrl}viajes-7.jpg`,
         alt: 'Imagen 7',
         descripcion: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolor, perspiciatis?',
-        tags: ['palmera', 'agua', 'cielo'],
+        tags: ['castillo', 'montaña', 'cielo', 'casas'],
     }
 ]
+
+
+
+
+//GENERAR NUEVO ARRAY DE ETIQUETAS:
+//const arrButton = ['mar', 'palmera', 'chica', 'cielo']; // Generar los tags a partir del array arrImages.tags con un método
+function createArrayTags(){
+    let newArrayTags = [];
+
+    arrImages.forEach(object => {
+        newArrayTags = newArrayTags.concat(object.tags); // concatena todos los tags
+    });
+
+    const uniqueTags = newArrayTags.filter((tag, index) => {
+        return newArrayTags.indexOf(tag) === index; // solo deja el primer índice de cada tag
+        //newArrayTags.indexOf(tag) -> Devuelve el primer índice donde aparece ese valor tag en el array.
+        //index -> Es la posición actual del elemento en la iteración con .filter().
+    });
+
+    console.log(uniqueTags); 
+    return uniqueTags;
+}
+
+
+
 
 
 // CREAR BOTONES CON VALORES DEL ARRAY
 //Funcion para crear botones
 const createButton = () => {
+    const arrButton = createArrayTags();
     arrButton.forEach((tag) => {
         const buttonTags = document.createElement("button");
         buttonTags.classList.add("boton");
@@ -83,7 +108,7 @@ const createButton = () => {
 // Función para pintar el párrafo con los resultados encontrados
 // Pruebas para el template string
 let numberOfPictures = 3;
-let tagName ='Mar';
+let tagName = 'Mar';
 
 const createButtonParagraph = () => {
     const resultParagraph = document.createElement("p");
@@ -93,15 +118,48 @@ const createButtonParagraph = () => {
     console.log(filterBar);
 }
 
+// FUNCIÓN: Recorre arrImages y guarda el índice de la primera coincidencia con el tag clickado. 
+// (Ej: si clickas mar, devuelve el índice de la primera vez que aparece el tag "mar")
+function findTag(tag){
+    const foundIndex = arrImages.findIndex(object => object.tags.includes(tag)); //Si devuelve true, guarda el index del primer tag encontrado
+    return foundIndex;
+}
 
-// Función evento generar Imágenes al clickaren botón-etiqueta
+
+// FUNCIÓN-EVENTO: genera la imagen al clickar en el botón.
+// Busca el tag del elemento clickado, búsca el índice de la primera aparición de ese tag y genera la card en base a ese índice.
 const findImages = () => {
-    buttonArticle.addEventListener("click", generateCards);
+    document.addEventListener("click", (event) => {
+        if(event.target.matches('.bloque-botones > *')) {
+            const id = event.target.id; //id es el tag
+            const tagIndex = findTag(id);
+            generateBigCard(tagIndex);
+            printSmallCards(id);
+        }
+    }) 
 }
 
-function generateCards() {
-  generateBigCard(indiceImg=0);
+
+//Filtrar imágenes que contengan ese card y pintarlas todas. Una condicional??
+//Llamar al contenedor
+//Generar el galleryContainer sólo una vez en caso de que haya más de una imagen con esa etiqueta. 
+
+
+function printSmallCards(tag) {
+    // 1. Filtrar imágenes que contengan ese tag
+    const matchingObjects = arrImages.filter(object => object.tags.includes(tag));
+
+    // 3. Crear contenedor
+    const containerGallery = generateGalleryContainer();
+
+    // 4. Recorrer las imágenes y pintarlas
+    matchingObjects.forEach(object => {
+        const card = generateSmallCard(object); // usa tu función para crear mini-cards
+        containerGallery.append(card);
+    });
 }
+
+
 
 
 // CREAR CARD GRANDE --------------------------------------------------------------------------------//
@@ -146,8 +204,8 @@ function generateGalleryContainer () {
     galleryContainer.append(h2Card);
     galleryContainer.append(divGallery);
 
-    const smallCard = generateSmallCard();
-    divGallery.append(smallCard);
+    // const smallCard = generateSmallCard();
+    // divGallery.append(smallCard);
 }
 
 
@@ -184,7 +242,7 @@ function generateSmallCard(indiceImg=1){
 
 
 
-/*PALUEGO
+/*PARA DESPUÉS
 function generateGalleryCard(indiceImg=0){
     arrFiltrados.forEach((elemento,index) => {
         if(index !== indiceImg){
@@ -195,14 +253,37 @@ function generateGalleryCard(indiceImg=0){
 }
 */
 
+
+
+
 /*QUEDA POR HACER*/
+// Hacer que cuando se clicke el boton aparezca el mensaje, la card grande y la galeria de cards.
+// forEach para crear las cards pequeñas
+// Contador tags para <p>
+// X Generar el array de los tags. 
+
+// document.addEventListener(' click ' , (event) => {
+// 	if(event.target.matches(' #botonera > * ')) {
+// 	 //cualquier elemento hijo de un elemento con clase botonera.
+// 		const id = ev.target.id
+// 		crearArrayImagen(id)
+// 	}
+
+// 	if (event.target.classList('hijos')) {
+// 		const indiceObj = event.target.getAttribute(' data-index ')
+// 		pintarGrande(indiceObj)
+// pintarGalería(indiceObj)
+// }
+// })
 
 
 
 
+
+createArrayTags();
 createButton();
 findImages();
-createButtonParagraph()
+createButtonParagraph();
 generateGalleryContainer();
-generateSmallCard;
+generateSmallCard();
 
