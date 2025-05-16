@@ -2,6 +2,7 @@
 // Llamar a los elementos
 const buttonArticle = document.querySelector(".bloque-botones");
 const filterBar = document.querySelector(".barra-filtros");
+const mainContainer = document.querySelector("main");
 
 // Variables
 
@@ -101,16 +102,60 @@ function generateImageDependigOnTheTagClicked() {
   console.log("findImages está funcionando");
 }
 
-createButton();
-findImages();
-createButtonParagraph()
-
-
-
-
-
 
 
 // CREAR CARD GRANDE
+function generateBigCard(indiceImg=0){
+        const sectionBigCard = document.createElement('section'); //crea un div para Card
+        sectionBigCard.classList.add('card-grande'); //añade una clase en el div Card
+        
+        const h3Card = document.createElement('h3'); //crea un h1
+        h3Card.textContent = arrImages[indiceImg].titulo; //añade el contenido html del texto
+
+        const divCard = document.createElement('div');
+        const imgCard = document.createElement('img'); //crea un img
+        imgCard.setAttribute('src', arrImages[indiceImg].url) //añade atributo src
+        imgCard.setAttribute('alt', arrImages[indiceImg].alt) //añade atributo alt
+
+        
+        const pCard = document.createElement('p'); //crea un p
+        
+        pCard.textContent = arrImages[indiceImg].descripcion; //añade el contenido html del texto
+        
+        sectionBigCard.append(h3Card); //agrega h1Card dentro del divCard, al final
+        sectionBigCard.append(divCard);
+        divCard.append(imgCard); //agrega imgCard dentro del divCard, al final 
+        sectionBigCard.append(pCard); //agrega h1Card dentro del divCard, al final  
+        
+        mainContainer.append(sectionBigCard); //agrega divCard dentro del contenedorCards
+}
+   
+
+/*PALUEGO
+function generateGalleryCard(indiceImg=0){
+    arrFiltrados.forEach((elemento,index) => {
+        if(index !== indiceImg){
+            generateSmallCard()
+        }
+    })
+
+}
+*/
+
+
+
+
+createButton();
+findImages();
+createButtonParagraph()
+generateBigCard();
+
+
+
+
+
+
+
+
 
 // CREAR CARD PEQUEÑAS
