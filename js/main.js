@@ -95,19 +95,20 @@ const createButtonParagraph = () => {
 
 // Función evento generar Imágenes al clickaren botón-etiqueta
 const findImages = () => {
-    buttonArticle.addEventListener("click", generateImageDependigOnTheTagClicked);
+    buttonArticle.addEventListener("click", generateCards);
 }
 
-function generateImageDependigOnTheTagClicked() {
-  console.log("findImages está funcionando");
+function generateCards() {
+  generateBigCard(indiceImg=0);
 }
-
 
 
 // CREAR CARD GRANDE
 function generateBigCard(indiceImg=0){
-        const sectionBigCard = document.createElement('section'); //crea un div para Card
-        sectionBigCard.classList.add('card-grande'); //añade una clase en el div Card
+        
+        const sectionBigCard = document.createElement('section'); //crea un section para Card
+        /*sectionBigCard.innerHTML = ''; //vaciar la section*/
+        sectionBigCard.classList.add('card-grande'); //añade una clase en la section Card
         
         const h3Card = document.createElement('h3'); //crea un h1
         h3Card.textContent = arrImages[indiceImg].titulo; //añade el contenido html del texto
@@ -125,11 +126,13 @@ function generateBigCard(indiceImg=0){
         sectionBigCard.append(h3Card); //agrega h1Card dentro del divCard, al final
         sectionBigCard.append(divCard);
         divCard.append(imgCard); //agrega imgCard dentro del divCard, al final 
-        sectionBigCard.append(pCard); //agrega h1Card dentro del divCard, al final  
-        
-        mainContainer.append(sectionBigCard); //agrega divCard dentro del contenedorCards
+        sectionBigCard.append(pCard); //agrega h1Card dentro del divCard, al final 
+
+        filterBar.after(sectionBigCard);
 }
-   
+
+
+
 
 /*PALUEGO
 function generateGalleryCard(indiceImg=0){
@@ -148,7 +151,6 @@ function generateGalleryCard(indiceImg=0){
 createButton();
 findImages();
 createButtonParagraph()
-generateBigCard();
 
 
 
