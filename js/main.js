@@ -176,9 +176,8 @@ function generateSmallCard(indiceImg=1){
         articleSmallCard.append(divCard);
         divCard.append(imgCard);
         articleSmallCard.append(pSmallCard); 
-        return articleSmallCard;
 
-        // divGallery.append(articleSmallCard);
+        return articleSmallCard;
 }
 
 
@@ -195,6 +194,8 @@ function generateGalleryCard(indiceImg=0){
 
 }
 */
+
+/*QUEDA POR HACER*/
 
 
 
