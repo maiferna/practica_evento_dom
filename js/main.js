@@ -110,9 +110,9 @@ const createButton = () => {
 let numberOfPictures = 3;
 let tagName = 'Mar';
 
-const createButtonParagraph = () => {
+const createButtonParagraph = (tag) => {
     const resultParagraph = document.createElement("p");
-    resultParagraph.textContent = `Se han encontrado ${numberOfPictures} imágenes con el tag ${tagName}`;
+    resultParagraph.textContent = `Se han encontrado ${numberOfPictures} imágenes con el tag ${tag}`;
 
     filterBar.append(resultParagraph);
     console.log(filterBar);
@@ -133,7 +133,7 @@ const findImages = () => {
         if(event.target.matches('.bloque-botones > *')) {
             const id = event.target.id; //id es el tag
             const tagIndex = findTag(id);
-            createButtonParagraph();
+            createButtonParagraph(id);
             generateBigCard(tagIndex);
             printSmallCards(id);
         }
@@ -154,7 +154,7 @@ function printSmallCards(tag) {
     const containerGallery = generateGalleryContainer();
 
     //Recorrer las imágenes y pintarlas
-    matchingObjects.forEach(object => {
+    matchingObjects.slice(1).forEach(object => {
         const card = generateSmallCard(object); // usa tu función para crear mini-cards
         containerGallery.append(card);
     });
