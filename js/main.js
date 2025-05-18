@@ -133,6 +133,7 @@ const findImages = () => {
         if(event.target.matches('.bloque-botones > *')) {
             const id = event.target.id; //id es el tag
             const tagIndex = findTag(id);
+            createButtonParagraph();
             generateBigCard(tagIndex);
             printSmallCards(id);
         }
@@ -146,13 +147,13 @@ const findImages = () => {
 
 
 function printSmallCards(tag) {
-    // 1. Filtrar imágenes que contengan ese tag
+    //Filtrar imágenes que contengan ese tag
     const matchingObjects = arrImages.filter(object => object.tags.includes(tag));
 
-    // 3. Crear contenedor
+    //Crear contenedor
     const containerGallery = generateGalleryContainer();
 
-    // 4. Recorrer las imágenes y pintarlas
+    //Recorrer las imágenes y pintarlas
     matchingObjects.forEach(object => {
         const card = generateSmallCard(object); // usa tu función para crear mini-cards
         containerGallery.append(card);
@@ -206,29 +207,30 @@ function generateGalleryContainer () {
 
     // const smallCard = generateSmallCard();
     // divGallery.append(smallCard);
+    return divGallery;
 }
 
 
 
 
 //Crear mini-card
-function generateSmallCard(indiceImg=1){
+function generateSmallCard(image){
         
         const articleSmallCard = document.createElement('article'); //crea un section para Card
         articleSmallCard.classList.add('card-mini'); //añade una clase en la section Card
         
         const h4Card = document.createElement('h4'); //crea un h1
-        h4Card.textContent = arrImages[indiceImg].titulo; //añade el contenido html del texto
+        h4Card.textContent = image.titulo; //añade el contenido html del texto
 
         const divCard = document.createElement('div');
         const imgCard = document.createElement('img'); //crea un img
-        imgCard.setAttribute('src', arrImages[indiceImg].url) //añade atributo src
-        imgCard.setAttribute('alt', arrImages[indiceImg].alt) //añade atributo alt
+        imgCard.setAttribute('src', image.url) //añade atributo src
+        imgCard.setAttribute('alt', image.alt) //añade atributo alt
 
         
         const pSmallCard = document.createElement('p'); //crea un p
         
-        pSmallCard.textContent = arrImages[indiceImg].descripcion; 
+        pSmallCard.textContent = image.descripcion; 
         
         articleSmallCard.append(h4Card); 
         articleSmallCard.append(divCard);
@@ -262,28 +264,7 @@ function generateGalleryCard(indiceImg=0){
 // Contador tags para <p>
 // X Generar el array de los tags. 
 
-// document.addEventListener(' click ' , (event) => {
-// 	if(event.target.matches(' #botonera > * ')) {
-// 	 //cualquier elemento hijo de un elemento con clase botonera.
-// 		const id = ev.target.id
-// 		crearArrayImagen(id)
-// 	}
 
-// 	if (event.target.classList('hijos')) {
-// 		const indiceObj = event.target.getAttribute(' data-index ')
-// 		pintarGrande(indiceObj)
-// pintarGalería(indiceObj)
-// }
-// })
-
-
-
-
-
-createArrayTags();
 createButton();
 findImages();
-createButtonParagraph();
-generateGalleryContainer();
-generateSmallCard();
 
